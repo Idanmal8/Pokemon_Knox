@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon_knox/pages/home_page_screen/widgets/pokemon_list_card.dart';
 import 'package:provider/provider.dart';
 import 'package:pokemon_knox/pages/home_page_screen/widgets/pokemon_circuler_trait.dart';
 import 'package:pokemon_knox/viewmodel/home_screen_view_model.dart';
@@ -18,18 +19,20 @@ class HomeScreen extends StatelessWidget {
         child: Builder(builder: (context) {
           return Consumer<HomeScreenViewModel>(
               builder: (context, controller, _) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: GridView.builder(
+            return SingleChildScrollView( // Wrap Column in SingleChildScrollView
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(8.0),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3, // Number of items per row
-                      crossAxisSpacing: 8.0, // Horizontal space between items
-                      mainAxisSpacing: 8.0, // Vertical space between items
-                      childAspectRatio: 1.2, // Aspect ratio of the items
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 8.0,
+                      childAspectRatio: 1.2,
                     ),
                     itemCount: 6,
                     itemBuilder: (context, index) {
@@ -37,28 +40,23 @@ class HomeScreen extends StatelessWidget {
                           spriteUrl: '', pokemonAdded: false);
                     },
                   ),
-                ),
-                ElevatedButton(
-                    onPressed: () => {controller.getPokemonList()
-                    },
-                    child: const Text('get pokemons')),
-                Expanded(
-                  child: controller.isLoading
+                  controller.isLoading
                       ? const Center(child: CircularProgressIndicator())
                       : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
                           padding: const EdgeInsets.all(8.0),
                           itemCount: controller.pokemonList.length,
                           itemBuilder: (context, index) {
                             final pokemon = controller.pokemonList[index];
-                            return ListTile(
-                              leading: Image.network(pokemon.frontDefaultSprite ?? '', errorBuilder: (context, error, stackTrace) => const Icon(Icons.error)),
-                              title: Text(pokemon.name),
+                            return PokemonListCard(
+                              pokemon: pokemon,
                               onTap: () => controller.goToPokemonDetails(context, pokemon),
                             );
                           },
                         ),
-                ),
-              ],
+                ],
+              ),
             );
           });
         }),

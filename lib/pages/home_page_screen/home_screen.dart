@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_knox/pages/home_page_screen/widgets/pokemon_list_card.dart';
+import 'package:pokemon_knox/pages/home_page_screen/widgets/pokemon_search_bar.dart';
+import 'package:pokemon_knox/pages/home_page_screen/widgets/suggestion_box.dart';
 import 'package:provider/provider.dart';
 import 'package:pokemon_knox/pages/home_page_screen/widgets/pokemon_circuler_trait.dart';
 import 'package:pokemon_knox/viewmodel/home_screen_view_model.dart';
@@ -50,24 +52,39 @@ class HomeScreen extends StatelessWidget {
                               spriteUrl: '', pokemonAdded: false);
                         },
                       ),
-                      const SizedBox(height: 12.0), // Spacing between GridView and ListView
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.pokemonList.length +
-                            (controller.isLoading ? 1 : 0),
-                        itemBuilder: (context, index) {
-                          if (index == controller.pokemonList.length) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          final pokemon = controller.pokemonList[index];
-                          return PokemonListCard(
-                            pokemon: pokemon,
-                            onTap: () =>
-                                controller.goToPokemonDetails(context, pokemon),
-                          );
-                        },
+                      const SizedBox(height: 12.0),
+                      PokemonSearchBar(
+                        controller: controller.searchController,
+                      ),
+                      Stack(
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.pokemonList.length +
+                                (controller.isLoading ? 1 : 0),
+                            itemBuilder: (context, index) {
+                              if (index == controller.pokemonList.length) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              final pokemon = controller.pokemonList[index];
+                              return PokemonListCard(
+                                pokemon: pokemon,
+                                onTap: () => controller.goToPokemonDetails(
+                                    context, pokemon),
+                              );
+                            },
+                          ),
+                          controller.suggestions.isNotEmpty
+                              ? SuggestionBox(
+                                  suggestions: controller.suggestions,
+                                  onSelected: (String selection) {
+                                    controller.goToPokemonDetailsBySearch(context, selection);
+                                  },
+                                )
+                              : const SizedBox.shrink(),
+                        ],
                       ),
                     ],
                   ),

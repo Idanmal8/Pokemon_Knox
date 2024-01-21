@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_knox/models/pokemon.dart';
+import 'package:pokemon_knox/viewmodel/pokemon_detail_view_model.dart';
+import 'package:provider/provider.dart';
 
 class PokemonDetails extends StatelessWidget {
-  final Pokemon pokemon;
+  final Pokemon? pokemon;
+  final String? pokemonName;
+
   const PokemonDetails({
-    required this.pokemon,
+    this.pokemon,
+    this.pokemonName,
     super.key,
   });
 
@@ -12,19 +17,32 @@ class PokemonDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(pokemon.name),
+        title: const Text('Details'),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Image.network(pokemon.frontDefaultSprite ?? ''),
-            Text(pokemon.name),
-            Text(pokemon.height.toString()),
-            Text(pokemon.weight.toString()),
-            Text(pokemon.id.toString()),
-            Text(pokemon.types.toString()),
-          ],
+      body: ChangeNotifierProvider<PokemonDetailViewModel>(
+        create: (context) => PokemonDetailViewModel(
+          pokemon: pokemon,
+          pokemonName: pokemonName,
         ),
-      ));
+        child: Consumer<PokemonDetailViewModel>(
+          builder: (context, controller, _) {
+            if (controller.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (controller.pokemon != null) {
+              return Center(
+                child: Column(
+                  children: [
+                    Image.network(controller.pokemon?.frontDefaultSprite ?? ''),
+                    // ... other details ...
+                  ],
+                ),
+              );
+            } else {
+              return const Center(child: Text('Pokemon not found.'));
+            }
+          },
+        ),
+      ),
+    );
   }
 }

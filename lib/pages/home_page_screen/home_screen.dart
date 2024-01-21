@@ -52,7 +52,6 @@ class HomeScreen extends StatelessWidget {
                               spriteUrl: '', pokemonAdded: false);
                         },
                       ),
-                      const SizedBox(height: 12.0),
                       PokemonSearchBar(
                         controller: controller.searchController,
                       ),

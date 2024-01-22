@@ -14,6 +14,9 @@ final ThemeData myRedWhiteTheme = ThemeData(
     buttonColor: Colors.red, // Button background color
     textTheme: ButtonTextTheme.primary,
   ),
+  iconTheme: const IconThemeData(
+    color: Colors.black, // Icon color
+  ),
 );
 
 Color getTypeColor(String type) {

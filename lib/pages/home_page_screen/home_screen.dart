@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pokemon_knox/pages/home_page_screen/widgets/pokemon_list_card.dart';
-import 'package:pokemon_knox/pages/home_page_screen/widgets/pokemon_search_bar.dart';
-import 'package:pokemon_knox/pages/home_page_screen/widgets/suggestion_box.dart';
+import 'package:pokemon_knox/pages/my_team_list_screen/widget/pokemon_list_card.dart';
+import 'package:pokemon_knox/pages/my_team_list_screen/widget/pokemon_search_bar.dart';
+import 'package:pokemon_knox/pages/my_team_list_screen/widget/suggestion_box.dart';
 import 'package:pokemon_knox/pages/my_team_list_screen/my_team_list_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pokemon_knox/pages/home_page_screen/widgets/pokemon_circuler_trait.dart';
@@ -12,40 +12,39 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Pokemon Knox',
-            style: Theme.of(context).textTheme.headlineLarge),
-        iconTheme: Theme.of(context).iconTheme,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: const Text('My team'),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const MyTeamScreen()),
-                );
-              },
+    return ChangeNotifierProvider<HomeScreenViewModel>(
+      create: (context) => HomeScreenViewModel(),
+      child: Consumer<HomeScreenViewModel>(
+        builder: (context, controller, _) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Pokemon Knox',
+                  style: Theme.of(context).textTheme.headlineLarge),
+              iconTheme: Theme.of(context).iconTheme,
             ),
-            ListTile(
-              title: const Text('Pokemon list'),
-              onTap: () {
-                Navigator.pop(context);
-              },
+            drawer: Drawer(
+              child: ListView(
+                children: [
+                  ListTile(
+                    title: const Text('My team'),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MyTeamScreen()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Pokemon list'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-      body: ChangeNotifierProvider<HomeScreenViewModel>(
-        create: (context) => HomeScreenViewModel(),
-        child: Builder(builder: (context) {
-          return Consumer<HomeScreenViewModel>(
-              builder: (context, controller, _) {
-            return NotificationListener<ScrollNotification>(
+            body: NotificationListener<ScrollNotification>(
               onNotification: (ScrollNotification scrollInfo) {
                 if (!controller.isLoading &&
                     scrollInfo.metrics.pixels ==
@@ -114,9 +113,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            );
-          });
-        }),
+            ),
+          );
+        },
       ),
     );
   }

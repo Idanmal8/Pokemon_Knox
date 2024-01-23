@@ -24,20 +24,20 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
 
   void _updateSuggestions(String filter) {
     // Now you can access pokemonNameList because this method is inside the ViewModel
-    updateSuggestions(pokemonNameList);
+    // updateSuggestions(pokemonNameList);
   }
 
-  List<PokemonUrl>? get filteredPokemonList {
-    if (!isFillterOn) return [...pokemonNameList];
+  // List<PokemonUrl>? get filteredPokemonList {
+  //   if (!isFillterOn) return [...pokemonNameList];
 
-    if (isFillterOn) {
-      return pokemonNameList
-          .where((pokemon) => applyFillter(pokemon.name))
-          .toList();
-    } else {
-      return pokemonNameList;
-    }
-  }
+  //   if (isFillterOn) {
+  //     return pokemonNameList
+  //         .where((pokemon) => applyFillter(pokemon.name))
+  //         .toList();
+  //   } else {
+  //     return pokemonNameList;
+  //   }
+  // }
 
   Future<void> getPokemonNameList() async {
     final response = await http.get(Uri.parse(ApiConstant.nameUrl));

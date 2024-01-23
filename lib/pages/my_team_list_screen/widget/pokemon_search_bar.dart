@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class PokemonSearchBar extends StatelessWidget {
   final TextEditingController? controller;
   final double? elevation;
+  final VoidCallback? onClear;
 
   const PokemonSearchBar({
     this.controller,
     this.elevation,
+    this.onClear,
     super.key,
   });
 

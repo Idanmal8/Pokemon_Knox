@@ -23,7 +23,7 @@ class SuggestionBox extends StatelessWidget {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(suggestions[index]),
-            onTap: () => onSelected(suggestions[index]),
+            onTap: () => {onSelected(suggestions[index])},
           );
         },
       ),

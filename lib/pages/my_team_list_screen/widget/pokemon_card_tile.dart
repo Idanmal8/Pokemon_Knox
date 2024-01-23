@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_knox/models/pokemon.dart';
-import 'package:pokemon_knox/theme.dart';
 
 class PokemonCardTile extends StatelessWidget {
   final Pokemon? pokemon;
@@ -14,7 +13,6 @@ class PokemonCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Color backgroundColor = getTypeColor(pokemon!.types.first); // Get color based on the first type of the pokemon
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(

@@ -12,7 +12,7 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
   bool _isLoading = false;
   List<Pokemon> pokemonList = [];
   List<PokemonUrl> _pokemonNameList = [];
-  List<Pokemon?> myTeam = [null, null, null, null, null, null];
+  List<Pokemon?> myTeam = List.filled(6, null);
 
   Pokemon? _selectedPokemon;
   Pokemon? _addPokemonToMyTeam;
@@ -44,16 +44,11 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
   }
 
   void onTapAddPokemonToMyTeam(int index) {
-    _isLoading = true;
-    notifyListeners();
-
     if (index >= 0 && index < myTeam.length) {
       myTeam[index] = _selectedPokemon;
       print('this is index ${index} and this is the team memeber -> ${myTeam[index]}');
+      notifyListeners();
     }
-
-    _isLoading = false;
-    notifyListeners();
   }
 
   Future<void> getPokemonNameList() async {

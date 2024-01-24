@@ -15,20 +15,16 @@ class MyTeamScreen extends StatelessWidget {
               Text('My team', style: Theme.of(context).textTheme.headlineLarge),
           iconTheme: Theme.of(context).iconTheme,
         ),
-        body: ChangeNotifierProvider<HomeScreenViewModel>(
-          create: (context) => HomeScreenViewModel(),
-          child: Consumer<HomeScreenViewModel>(
+        body: Consumer<HomeScreenViewModel>(
             builder: (context, controller, _) {
               return Column(
                 children: [
-                  Flexible(
-                    child: controller.isLoading ? const CircularProgressIndicator()  : ListView.builder(
+                  Expanded(
+                    child: ListView.builder(
                       itemCount: controller.myTeam.length,
                       itemBuilder: (context, index) {
                         var pokemon = controller.myTeamList[index];
                         return PokemonCardTile(
-                          key: ValueKey(controller.myTeamList[
-                              index]), // Use a unique aspect of your data as the key
                           pokemon: pokemon,
                           onTap: () =>
                               _showAddPokemonBottomSheet(context,controller, index),
@@ -40,11 +36,11 @@ class MyTeamScreen extends StatelessWidget {
               );
             },
           ),
-        ));
+        );
   }
 }
 
-void _showAddPokemonBottomSheet(BuildContext context, HomeScreenViewModel controller ,int index) {
+void _showAddPokemonBottomSheet(BuildContext context, HomeScreenViewModel controller, int index) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {

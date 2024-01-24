@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class Pokemon {
   String name;
@@ -11,6 +12,8 @@ class Pokemon {
   int? height;
   int? weight;
   int? id;
+  Color? primaryTypeColor;
+  Color? secondaryTypeColor;
 
   Pokemon({
     required this.name,
@@ -20,6 +23,8 @@ class Pokemon {
     this.height,
     this.weight,
     this.id,
+    this.primaryTypeColor,
+    this.secondaryTypeColor,
   });
 
   Pokemon copyWith({
@@ -30,6 +35,8 @@ class Pokemon {
     int? height,
     int? weight,
     int? id,
+    Color? primaryTypeColor,
+    Color? secondaryTypeColor,
   }) {
     return Pokemon(
       name: name ?? this.name,
@@ -39,6 +46,8 @@ class Pokemon {
       height: height ?? this.height,
       weight: weight ?? this.weight,
       id: id ?? this.id,
+      primaryTypeColor: primaryTypeColor ?? this.primaryTypeColor,
+      secondaryTypeColor: secondaryTypeColor ?? this.secondaryTypeColor,
     );
   }
 
@@ -51,16 +60,18 @@ class Pokemon {
       'height': height,
       'weight': weight,
       'id': id,
+      'primaryTypeColor': primaryTypeColor?.value,
+      'secondaryTypeColor': secondaryTypeColor?.value,
     };
   }
 
   // Uncomment this if you need to convert Pokemon object to a JSON string
   // String toJson() => json.encode(toMap());
 
-factory Pokemon.fromJson(Map<String, dynamic> json) {
+  factory Pokemon.fromJson(Map<String, dynamic> json) {
     var spriteData = json['sprites'] as Map<String, dynamic>? ?? {};
     var typeData = json['types'] as List<dynamic>? ?? [];
-    
+
     List<String> types = typeData.map((typeItem) {
       return typeItem['type']['name'] as String;
     }).toList();
@@ -78,35 +89,37 @@ factory Pokemon.fromJson(Map<String, dynamic> json) {
 
   @override
   String toString() {
-    return 'Pokemon(name: $name, url: $url, frontDefaultSprite: $frontDefaultSprite, types: $types, height: $height, weight: $weight, id: $id)';
+    return 'Pokemon(name: $name, url: $url, frontDefaultSprite: $frontDefaultSprite, types: $types, height: $height, weight: $weight, id: $id, primaryTypeColor: $primaryTypeColor, secondaryTypeColor: $secondaryTypeColor)';
   }
 
   @override
   bool operator ==(covariant Pokemon other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.name == name &&
-      other.url == url &&
-      other.frontDefaultSprite == frontDefaultSprite &&
-      listEquals(other.types, types) &&
-      other.height == height &&
-      other.weight == weight &&
-      other.id == id;
+
+    return other.name == name &&
+        other.url == url &&
+        other.frontDefaultSprite == frontDefaultSprite &&
+        listEquals(other.types, types) &&
+        other.height == height &&
+        other.weight == weight &&
+        other.id == id &&
+        other.primaryTypeColor == primaryTypeColor &&
+        other.secondaryTypeColor == secondaryTypeColor;
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
-      url.hashCode ^
-      frontDefaultSprite.hashCode ^
-      types.hashCode ^
-      height.hashCode ^
-      weight.hashCode ^
-      id.hashCode;
+        url.hashCode ^
+        frontDefaultSprite.hashCode ^
+        types.hashCode ^
+        height.hashCode ^
+        weight.hashCode ^
+        id.hashCode ^
+        primaryTypeColor.hashCode ^
+        secondaryTypeColor.hashCode;
   }
 
   String toJson() => json.encode(toMap());
-
 
 }

@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                 return true;
               },
               child: SingleChildScrollView(
-                controller: controller.scrollController,
+                // controller: controller.scrollController,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(

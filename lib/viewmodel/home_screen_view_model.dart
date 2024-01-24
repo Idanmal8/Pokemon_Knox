@@ -4,40 +4,57 @@ import 'dart:convert';
 import 'package:pokemon_knox/models/pokemon.dart';
 import 'package:pokemon_knox/models/pokemon_url.dart';
 import 'package:pokemon_knox/pages/pokemon_detail_screen/pokemon_detail_screen.dart';
+import 'package:pokemon_knox/theme.dart';
 import 'package:pokemon_knox/utils/constant.dart';
 import 'package:pokemon_knox/utils/search_bar/search_bar_handler.dart';
 
 class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
-  final ScrollController scrollController = ScrollController();
   bool _isLoading = false;
   List<Pokemon> pokemonList = [];
   List<PokemonUrl> _pokemonNameList = [];
+  List<Pokemon?> myTeam = [null, null, null, null, null, null];
+
+  Pokemon? _selectedPokemon;
+  Pokemon? _addPokemonToMyTeam;
   String nextBatchUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20';
 
   bool get isLoading => _isLoading;
   List<PokemonUrl> get pokemonNameList => _pokemonNameList;
+  Pokemon? get selectedPokemon => _selectedPokemon;
+  Pokemon? get addPokemonToMyTeam => _addPokemonToMyTeam;
+  List<Pokemon?> get myTeamList => myTeam;
 
   HomeScreenViewModel() {
     initSearchBar(_updateSuggestions);
-    getPokemonList();
+    getPokemonNameList();
+  }
+
+  set selectedPokemon(Pokemon? pokemon) {
+    _selectedPokemon = pokemon;
+    notifyListeners();
   }
 
   void _updateSuggestions(String filter) {
-    // Now you can access pokemonNameList because this method is inside the ViewModel
-    // updateSuggestions(pokemonNameList);
+    updateSuggestions(pokemonNameList);
   }
 
-  // List<PokemonUrl>? get filteredPokemonList {
-  //   if (!isFillterOn) return [...pokemonNameList];
+  void clearSelectedPokemon() {
+    _selectedPokemon = null;
+    notifyListeners();
+  }
 
-  //   if (isFillterOn) {
-  //     return pokemonNameList
-  //         .where((pokemon) => applyFillter(pokemon.name))
-  //         .toList();
-  //   } else {
-  //     return pokemonNameList;
-  //   }
-  // }
+  void onTapAddPokemonToMyTeam(int index) {
+    _isLoading = true;
+    notifyListeners();
+
+    if (index >= 0 && index < myTeam.length) {
+      myTeam[index] = _selectedPokemon;
+      print('this is index ${index} and this is the team memeber -> ${myTeam[index]}');
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
 
   Future<void> getPokemonNameList() async {
     final response = await http.get(Uri.parse(ApiConstant.nameUrl));
@@ -52,32 +69,33 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
     }
   }
 
+  Future<void> getPokemonInformation(String name) async {
+    _isLoading = true;
+    notifyListeners();
+
+    final response =
+        await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'));
+    if (response.statusCode == 200) {
+      _selectedPokemon = Pokemon.fromJson(json.decode(response.body));
+      getTypeColor(_selectedPokemon!);
+      suggestions.clear();
+      _isLoading = false;
+      notifyListeners();
+    } else {
+      debugPrint('Failed to fetch Pokemon details for: $name');
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   Future<void> getPokemonList() async {
     _isLoading = true;
     notifyListeners();
 
-    getPokemonNameList();
-    await _fetchBatch(nextBatchUrl);
-    scrollController.addListener(_onScroll);
+    await getPokemonNameList();
 
     _isLoading = false;
     notifyListeners();
-  }
-
-  void _onScroll() {
-    if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent &&
-        !isLoading &&
-        nextBatchUrl.isNotEmpty) {
-      loadMorePokemons();
-    }
-  }
-
-  @override
-  void dispose() {
-    scrollController.removeListener(_onScroll);
-    scrollController.dispose();
-    super.dispose();
   }
 
   Future<void> loadMorePokemons() async {
@@ -127,9 +145,11 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
     );
   }
 
-  Future<void> goToPokemonDetailsBySearch(BuildContext context, String pokemon) async {
+  Future<void> goToPokemonDetailsBySearch(
+      BuildContext context, String pokemon) async {
     await Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => PokemonDetails(pokemonName: pokemon)),
+      MaterialPageRoute(
+          builder: (context) => PokemonDetails(pokemonName: pokemon)),
     );
   }
 }

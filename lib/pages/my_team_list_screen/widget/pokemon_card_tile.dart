@@ -27,7 +27,7 @@ class PokemonCardTile extends StatelessWidget {
             child: Row(
               children: [
                 pokemon != null
-                    ? Image.network(pokemon?.url ?? '', fit: BoxFit.cover)
+                    ? Image.network(pokemon?.url ?? '', fit: BoxFit.contain)
                     : const Icon(Icons.category_sharp),
                 const SizedBox(width: 20),
                 Expanded(
@@ -48,23 +48,23 @@ class PokemonCardTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                Flexible(
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    crossAxisCount: 2,
-                    childAspectRatio: 3, // Adjust aspect ratio as needed
-                    mainAxisSpacing: 4, // Adjust spacing as needed
-                    crossAxisSpacing: 4, // Adjust spacing as needed
-                    physics:
-                        const NeverScrollableScrollPhysics(), // Disable scrolling inside the grid
-                    children: const [
-                      Text('firebalasdasdl', overflow: TextOverflow.ellipsis),
-                      Text('fireball', overflow: TextOverflow.ellipsis),
-                      Text('fireball', overflow: TextOverflow.ellipsis),
-                      Text('fireball', overflow: TextOverflow.ellipsis),
-                    ],
-                  ),
-                ),
+                // Flexible(
+                //   child: GridView.count(
+                //     shrinkWrap: true,
+                //     crossAxisCount: 2,
+                //     childAspectRatio: 3, // Adjust aspect ratio as needed
+                //     mainAxisSpacing: 4, // Adjust spacing as needed
+                //     crossAxisSpacing: 4, // Adjust spacing as needed
+                //     physics:
+                //         const NeverScrollableScrollPhysics(), // Disable scrolling inside the grid
+                //     children: const [
+                //       Text('firebalasdasdl', overflow: TextOverflow.ellipsis),
+                //       Text('fireball', overflow: TextOverflow.ellipsis),
+                //       Text('fireball', overflow: TextOverflow.ellipsis),
+                //       Text('fireball', overflow: TextOverflow.ellipsis),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

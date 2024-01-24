@@ -1,5 +1,4 @@
 import 'package:pokemon_knox/models/pokemon.dart';
-import 'package:pokemon_knox/theme.dart';
 import 'package:flutter/material.dart';
 
 class PokemonListCard extends StatelessWidget {
@@ -7,18 +6,17 @@ class PokemonListCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   const PokemonListCard({
-    super.key,
     required this.pokemon,
     this.onTap,
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = getTypeColor(pokemon.types.first);
-
     return Expanded(
       child: Card(
-        color: backgroundColor,
+        elevation: 5,
+        color: pokemon.primaryTypeColor,
         child: Column(
           children: [
             ListTile(
@@ -61,6 +59,8 @@ class PokemonListCard extends StatelessWidget {
 
   Widget _buildAttributeTile(BuildContext context, String title, String value) {
     return Card(
+      elevation: 5,
+      color: pokemon.secondaryTypeColor,
       child: ListTile(
         title: Text(title, style: Theme.of(context).textTheme.headlineSmall),
         subtitle: Text(value, style: Theme.of(context).textTheme.headlineSmall),

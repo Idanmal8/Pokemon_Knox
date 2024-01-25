@@ -10,37 +10,38 @@ class MyTeamScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title:
-              Text('My team', style: Theme.of(context).textTheme.headlineLarge),
-          iconTheme: Theme.of(context).iconTheme,
-        ),
-        body: Consumer<HomeScreenViewModel>(
-            builder: (context, controller, _) {
-              return Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: controller.myTeam.length,
-                      itemBuilder: (context, index) {
-                        var pokemon = controller.myTeamList[index];
-                        return PokemonCardTile(
-                          pokemon: pokemon,
-                          onTap: () =>
-                              _showAddPokemonBottomSheet(context,controller, index),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        );
+      appBar: AppBar(
+        title:
+            Text('My team', style: Theme.of(context).textTheme.headlineLarge),
+        iconTheme: Theme.of(context).iconTheme,
+      ),
+      body: Consumer<HomeScreenViewModel>(
+        builder: (context, controller, _) {
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.myTeam.length,
+                  itemBuilder: (context, index) {
+                    var pokemon = controller.myTeamList[index];
+                    return PokemonCardTile(
+                      pokemon: pokemon,
+                      onTap: () => _showAddPokemonBottomSheet(
+                          context, controller, index),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
   }
 }
 
-void _showAddPokemonBottomSheet(BuildContext context, HomeScreenViewModel controller, int index) {
+void _showAddPokemonBottomSheet(
+    BuildContext context, HomeScreenViewModel controller, int index) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {

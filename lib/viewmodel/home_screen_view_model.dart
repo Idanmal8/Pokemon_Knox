@@ -46,7 +46,6 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
   void onTapAddPokemonToMyTeam(int index) {
     if (index >= 0 && index < myTeam.length) {
       myTeam[index] = _selectedPokemon;
-      print('this is index ${index} and this is the team memeber -> ${myTeam[index]}');
       notifyListeners();
     }
   }
@@ -67,12 +66,12 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
   Future<void> getPokemonInformation(String name) async {
     _isLoading = true;
     notifyListeners();
-
     final response =
         await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'));
     if (response.statusCode == 200) {
       _selectedPokemon = Pokemon.fromJson(json.decode(response.body));
-      getTypeColor(_selectedPokemon!);
+      getTypeColorByPokemon(_selectedPokemon!);
+      await getPokemonWeaknesses(_selectedPokemon!);
       suggestions.clear();
       _isLoading = false;
       notifyListeners();
@@ -81,6 +80,33 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<void> getPokemonWeaknesses(Pokemon pokemon) async{
+    final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/type/${pokemon.types.first}'));
+    if (response.statusCode == 200){
+      final data = json.decode(response.body) as Map<String, dynamic>;
+      final damageRelations = data['damage_relations'] as Map<String, dynamic>;
+      final doubleDamageFrom = damageRelations['double_damage_from'] as List<dynamic>;
+      // final halfDamageFrom = damageRelations['half_damage_from'] as List<dynamic>;
+      // final noDamageFrom = damageRelations['no_damage_from'] as List<dynamic>;
+
+      List<String> weaknesses = [];
+      for (var damage in doubleDamageFrom){
+        weaknesses.add(damage['name'] as String);
+      }
+      // for (var damage in halfDamageFrom){
+      //   weaknesses.add(damage['name'] as String);
+      // }
+      // for (var damage in noDamageFrom){
+      //   weaknesses.add(damage['name'] as String);
+      // }
+      pokemon.weaknesses = weaknesses;
+      print(weaknesses);
+    } else {
+      debugPrint('Failed to fetch Pokemon weaknesses for: ${pokemon.name}');
+    }
+    return;
   }
 
   Future<void> getPokemonList() async {

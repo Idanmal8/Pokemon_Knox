@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 class Pokemon {
@@ -14,6 +14,7 @@ class Pokemon {
   int? id;
   Color? primaryTypeColor;
   Color? secondaryTypeColor;
+  List<String> weaknesses;
 
   Pokemon({
     required this.name,
@@ -25,6 +26,7 @@ class Pokemon {
     this.id,
     this.primaryTypeColor,
     this.secondaryTypeColor,
+    required this.weaknesses,
   });
 
   Pokemon copyWith({
@@ -37,6 +39,7 @@ class Pokemon {
     int? id,
     Color? primaryTypeColor,
     Color? secondaryTypeColor,
+    List<String>? weaknesses,
   }) {
     return Pokemon(
       name: name ?? this.name,
@@ -48,6 +51,7 @@ class Pokemon {
       id: id ?? this.id,
       primaryTypeColor: primaryTypeColor ?? this.primaryTypeColor,
       secondaryTypeColor: secondaryTypeColor ?? this.secondaryTypeColor,
+      weaknesses: weaknesses ?? this.weaknesses,
     );
   }
 
@@ -62,6 +66,7 @@ class Pokemon {
       'id': id,
       'primaryTypeColor': primaryTypeColor?.value,
       'secondaryTypeColor': secondaryTypeColor?.value,
+      'weaknesses': weaknesses,
     };
   }
 
@@ -83,18 +88,19 @@ class Pokemon {
       types: types,
       height: json['height'] as int?,
       weight: json['weight'] as int?,
-      id: json['id'] as int?,
+      id: json['id'] as int?, weaknesses: [],
     );
   }
 
   @override
   String toString() {
-    return 'Pokemon(name: $name, url: $url, frontDefaultSprite: $frontDefaultSprite, types: $types, height: $height, weight: $weight, id: $id, primaryTypeColor: $primaryTypeColor, secondaryTypeColor: $secondaryTypeColor)';
+    return 'Pokemon(name: $name, url: $url, frontDefaultSprite: $frontDefaultSprite, types: $types, height: $height, weight: $weight, id: $id, primaryTypeColor: $primaryTypeColor, secondaryTypeColor: $secondaryTypeColor, weaknesses: $weaknesses)';
   }
 
   @override
   bool operator ==(covariant Pokemon other) {
     if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
 
     return other.name == name &&
         other.url == url &&
@@ -104,7 +110,8 @@ class Pokemon {
         other.weight == weight &&
         other.id == id &&
         other.primaryTypeColor == primaryTypeColor &&
-        other.secondaryTypeColor == secondaryTypeColor;
+        other.secondaryTypeColor == secondaryTypeColor &&
+        listEquals(other.weaknesses, weaknesses);
   }
 
   @override
@@ -117,9 +124,9 @@ class Pokemon {
         weight.hashCode ^
         id.hashCode ^
         primaryTypeColor.hashCode ^
-        secondaryTypeColor.hashCode;
+        secondaryTypeColor.hashCode ^
+        weaknesses.hashCode;
   }
 
   String toJson() => json.encode(toMap());
-
 }

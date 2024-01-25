@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_knox/models/pokemon.dart';
+import 'package:pokemon_knox/widgets/pokemon_badges.dart';
 
 class PokemonCardTile extends StatelessWidget {
   final Pokemon? pokemon;
@@ -32,21 +33,30 @@ class PokemonCardTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: pokemon != null
-                    ? Image.network(pokemon?.frontDefaultSprite ?? '',fit: BoxFit.fitWidth,)
+                    ? Image.network(
+                        pokemon?.frontDefaultSprite ?? '',
+                        fit: BoxFit.fitWidth,
+                      )
                     : const Icon(Icons.category_sharp),
               ),
-          
               const SizedBox(width: 20),
-              Expanded(
+              Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize:
+                      MainAxisSize.min, // Use minimum size for the column
                   children: [
                     pokemon != null
-                        ? Text(pokemon!.name)
+                        ? Text(pokemon!.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.headlineLarge)
                         : const Text('Pokemon name',
                             overflow: TextOverflow.ellipsis),
                     pokemon != null
-                        ? Text(pokemon!.types.first)
+                        ? Text(
+                            pokemon!.types.first,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          )
                         : const Text(
                             'Pokemon type',
                             overflow: TextOverflow.ellipsis,
@@ -55,23 +65,38 @@ class PokemonCardTile extends StatelessWidget {
                   ],
                 ),
               ),
-              // Flexible(
-              //   child: GridView.count(
-              //     shrinkWrap: true,
-              //     crossAxisCount: 2,
-              //     childAspectRatio: 3, // Adjust aspect ratio as needed
-              //     mainAxisSpacing: 4, // Adjust spacing as needed
-              //     crossAxisSpacing: 4, // Adjust spacing as needed
-              //     physics:
-              //         const NeverScrollableScrollPhysics(), // Disable scrolling inside the grid
-              //     children: const [
-              //       Text('firebalasdasdl', overflow: TextOverflow.ellipsis),
-              //       Text('fireball', overflow: TextOverflow.ellipsis),
-              //       Text('fireball', overflow: TextOverflow.ellipsis),
-              //       Text('fireball', overflow: TextOverflow.ellipsis),
-              //     ],
-              //   ),
-              // ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Strong against:',
+                        overflow: TextOverflow.ellipsis),
+                    Wrap(
+                      alignment: WrapAlignment
+                          .start, // Aligns children to the start of the wrap
+                      spacing: 1.0, // Horizontal space between the badges
+                      children: pokemon != null && pokemon!.weaknesses.isNotEmpty
+                          ? pokemon!.weaknesses
+                              .take(
+                                  2) // We only take two types as per your requirement
+                              .map((type) => SizedBox(
+                                    width:
+                                        60, // Assuming the badges fit within 60 pixels
+                                    child: PokemonTypeBadge(type: type),
+                                  ))
+                              .toList()
+                          : [
+                              const Text(
+                                'Pokemon types',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

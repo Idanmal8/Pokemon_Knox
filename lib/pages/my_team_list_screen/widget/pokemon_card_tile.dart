@@ -5,10 +5,12 @@ import 'package:pokemon_knox/widgets/pokemon_badges.dart';
 class PokemonCardTile extends StatelessWidget {
   final Pokemon? pokemon;
   final VoidCallback? onTap;
+  final VoidCallback? onArrowTap;
 
   const PokemonCardTile({
     this.pokemon,
     this.onTap,
+    this.onArrowTap,
     super.key,
   });
 
@@ -42,7 +44,7 @@ class PokemonCardTile extends StatelessWidget {
                         : const Icon(Icons.category_sharp),
                   ),
                   const SizedBox(width: 20),
-                  Flexible(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize:
@@ -116,16 +118,15 @@ class PokemonCardTile extends StatelessWidget {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                     ),
-                    side: MaterialStateProperty.all(BorderSide(
+                    side: MaterialStateProperty.all(const BorderSide(
                         color: Colors.transparent)), // Transparent border
                     backgroundColor: MaterialStateProperty.all(
                         Colors.transparent), // Transparent background
                     overlayColor: MaterialStateProperty.all(Colors.transparent
                         .withOpacity(0.1)), // Slight overlay color on press
                   ),
-                  onPressed: () {
-                    // Specific function for this button
-                    print('Right side button tapped');
+                  onPressed: () => {
+                  onArrowTap?.call()
                   },
                   child: const Icon(
                     Icons.arrow_forward_ios,

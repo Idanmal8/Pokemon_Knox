@@ -102,8 +102,8 @@ class HomeScreen extends StatelessWidget {
                               ? SuggestionBox(
                                   suggestions: controller.suggestions,
                                   onSelected: (String selection) {
-                                    controller.goToPokemonDetailsBySearch(
-                                        context, selection);
+                                    // controller.goToPokemonDetailsBySearch(
+                                    //     context, selection);
                                   },
                                 )
                               : const SizedBox.shrink(),

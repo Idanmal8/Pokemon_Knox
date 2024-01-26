@@ -6,8 +6,9 @@ final ThemeData myRedWhiteTheme = ThemeData(
       Colors.white, // Background color for Scaffold widgets
   appBarTheme: const AppBarTheme(
     color: Colors.white, // AppBar background color
-    iconTheme: IconThemeData(color: Colors.red), // AppBar icon color
+    iconTheme: IconThemeData(color: Color.fromARGB(255, 0, 0, 0)), // AppBar icon color
   ),
+  dialogBackgroundColor: const Color.fromARGB(255, 255, 237, 183),
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
         fontFamily: 'PixelifySans',

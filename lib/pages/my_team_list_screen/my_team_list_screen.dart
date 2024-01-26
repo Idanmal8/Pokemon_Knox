@@ -28,6 +28,7 @@ class MyTeamScreen extends StatelessWidget {
                       pokemon: pokemon,
                       onTap: () => _showAddPokemonBottomSheet(
                           context, controller, index),
+                      onArrowTap: () => controller.goToPokemonDetails(context ,pokemon),
                     );
                   },
                 ),

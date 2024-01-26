@@ -160,17 +160,9 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
     }
   }
 
-  Future<void> goToPokemonDetails(BuildContext context, Pokemon pokemon) async {
+  Future<void> goToPokemonDetails(BuildContext context, Pokemon? pokemon) async {
     await Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => PokemonDetails(pokemon: pokemon)),
-    );
-  }
-
-  Future<void> goToPokemonDetailsBySearch(
-      BuildContext context, String pokemon) async {
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-          builder: (context) => PokemonDetails(pokemonName: pokemon)),
     );
   }
 }

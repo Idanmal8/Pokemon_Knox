@@ -10,7 +10,9 @@ class PokemonTypeBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40,
+      width: 80,
       child: Card(
+        
         color: getTypeColor(type),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -24,6 +26,7 @@ class PokemonTypeBadge extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
           child: Text(
             type,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),

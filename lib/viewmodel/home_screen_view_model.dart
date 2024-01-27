@@ -70,6 +70,7 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
         await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'));
     if (response.statusCode == 200) {
       _selectedPokemon = Pokemon.fromJson(json.decode(response.body));
+      print(_selectedPokemon);
       getTypeColorByPokemon(_selectedPokemon!);
       await getPokemonWeaknesses(_selectedPokemon!);
       suggestions.clear();
@@ -102,7 +103,6 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
       //   weaknesses.add(damage['name'] as String);
       // }
       pokemon.weaknesses = weaknesses;
-      print(weaknesses);
     } else {
       debugPrint('Failed to fetch Pokemon weaknesses for: ${pokemon.name}');
     }

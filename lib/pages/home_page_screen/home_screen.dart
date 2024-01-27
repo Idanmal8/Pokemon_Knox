@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) =>
-                                MyTeamScreen()),
+                                const MyTeamScreen()),
                       );
                     },
                   ),

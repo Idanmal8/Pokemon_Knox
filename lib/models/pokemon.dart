@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 class Pokemon {
@@ -15,6 +13,7 @@ class Pokemon {
   Color? primaryTypeColor;
   Color? secondaryTypeColor;
   List<String> weaknesses;
+  List<String>? abilities;
 
   Pokemon({
     required this.name,
@@ -27,6 +26,7 @@ class Pokemon {
     this.primaryTypeColor,
     this.secondaryTypeColor,
     required this.weaknesses,
+    this.abilities,
   });
 
   Pokemon copyWith({
@@ -40,6 +40,7 @@ class Pokemon {
     Color? primaryTypeColor,
     Color? secondaryTypeColor,
     List<String>? weaknesses,
+    List<String>? abilities,
   }) {
     return Pokemon(
       name: name ?? this.name,
@@ -52,6 +53,7 @@ class Pokemon {
       primaryTypeColor: primaryTypeColor ?? this.primaryTypeColor,
       secondaryTypeColor: secondaryTypeColor ?? this.secondaryTypeColor,
       weaknesses: weaknesses ?? this.weaknesses,
+      abilities: abilities ?? this.abilities,
     );
   }
 
@@ -67,66 +69,42 @@ class Pokemon {
       'primaryTypeColor': primaryTypeColor?.value,
       'secondaryTypeColor': secondaryTypeColor?.value,
       'weaknesses': weaknesses,
+      'abilities': abilities,
     };
   }
 
-  // Uncomment this if you need to convert Pokemon object to a JSON string
-  // String toJson() => json.encode(toMap());
 
-  factory Pokemon.fromJson(Map<String, dynamic> json) {
-    var spriteData = json['sprites'] as Map<String, dynamic>? ?? {};
-    var typeData = json['types'] as List<dynamic>? ?? [];
+factory Pokemon.fromJson(Map<String, dynamic> json) {
+  var spriteData = json['sprites'] as Map<String, dynamic>? ?? {};
+  var typeData = json['types'] as List<dynamic>? ?? [];
+  var abilityData = json['abilities'] as List<dynamic>? ?? [];
 
-    List<String> types = typeData.map((typeItem) {
-      return typeItem['type']['name'] as String;
-    }).toList();
+  List<String> types = typeData.map((typeItem) {
+    return typeItem['type']['name'] as String;
+  }).toList();
 
-    return Pokemon(
-      name: json['name'] as String? ?? 'Unknown',
-      url: json['url'] as String? ?? 'Unknown',
-      frontDefaultSprite: spriteData['front_default'] as String?,
-      types: types,
-      height: json['height'] as int?,
-      weight: json['weight'] as int?,
-      id: json['id'] as int?, weaknesses: [],
-    );
-  }
+  List<String> abilities = abilityData.map((abilityItem) {
+    return abilityItem['ability']['name'] as String;
+  }).toList();
+
+  return Pokemon(
+    name: json['name'] as String? ?? 'Unknown',
+    url: json['url'] as String? ?? 'Unknown',
+    frontDefaultSprite: spriteData['front_default'] as String?,
+    types: types,
+    height: json['height'] as int?,
+    weight: json['weight'] as int?,
+    id: json['id'] as int?,
+    weaknesses: [], // Assuming you have a separate method to set weaknesses
+    abilities: abilities,
+  );
+}
 
   @override
   String toString() {
-    return 'Pokemon(name: $name, url: $url, frontDefaultSprite: $frontDefaultSprite, types: $types, height: $height, weight: $weight, id: $id, primaryTypeColor: $primaryTypeColor, secondaryTypeColor: $secondaryTypeColor, weaknesses: $weaknesses)';
-  }
-
-  @override
-  bool operator ==(covariant Pokemon other) {
-    if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-
-    return other.name == name &&
-        other.url == url &&
-        other.frontDefaultSprite == frontDefaultSprite &&
-        listEquals(other.types, types) &&
-        other.height == height &&
-        other.weight == weight &&
-        other.id == id &&
-        other.primaryTypeColor == primaryTypeColor &&
-        other.secondaryTypeColor == secondaryTypeColor &&
-        listEquals(other.weaknesses, weaknesses);
-  }
-
-  @override
-  int get hashCode {
-    return name.hashCode ^
-        url.hashCode ^
-        frontDefaultSprite.hashCode ^
-        types.hashCode ^
-        height.hashCode ^
-        weight.hashCode ^
-        id.hashCode ^
-        primaryTypeColor.hashCode ^
-        secondaryTypeColor.hashCode ^
-        weaknesses.hashCode;
+    return 'Pokemon(name: $name, url: $url, frontDefaultSprite: $frontDefaultSprite, types: $types, height: $height, weight: $weight, id: $id, primaryTypeColor: $primaryTypeColor, secondaryTypeColor: $secondaryTypeColor, weaknesses: $weaknesses, abilities: $abilities)';
   }
 
   String toJson() => json.encode(toMap());
+
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon_knox/models/pokemon.dart';
 import 'package:pokemon_knox/widgets/pokemon_badges.dart';
@@ -37,8 +38,9 @@ class PokemonCardTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: pokemon != null
-                        ? Image.network(
-                            pokemon?.frontDefaultSprite ?? '',
+                        ? CachedNetworkImage(
+                            imageUrl: pokemon!.frontDefaultSprite ?? '',
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
                             fit: BoxFit.contain,
                           )
                         : const Icon(Icons.category_sharp),

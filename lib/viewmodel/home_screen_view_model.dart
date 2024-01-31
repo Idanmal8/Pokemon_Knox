@@ -70,8 +70,9 @@ class HomeScreenViewModel extends ChangeNotifier with SearchBarHandler {
         await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'));
     if (response.statusCode == 200) {
       _selectedPokemon = Pokemon.fromJson(json.decode(response.body));
-      print(_selectedPokemon);
+
       getTypeColorByPokemon(_selectedPokemon!);
+      
       await getPokemonWeaknesses(_selectedPokemon!);
       suggestions.clear();
       _isLoading = false;

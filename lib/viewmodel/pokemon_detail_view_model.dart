@@ -1,7 +1,5 @@
 import 'package:pokemon_knox/models/pokemon.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'dart:convert';
 
 class PokemonDetailViewModel extends ChangeNotifier {
   final Pokemon? pokemon;

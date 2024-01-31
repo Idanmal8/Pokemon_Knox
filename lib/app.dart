@@ -1,4 +1,3 @@
-import 'package:pokemon_knox/pages/my_team_list_screen/my_team_list_screen.dart';
 import 'package:pokemon_knox/pages/nav_bar_screen/nav_nar_screen.dart';
 import 'package:pokemon_knox/viewmodel/home_screen_view_model.dart';
 import 'package:pokemon_knox/theme.dart';
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
         builder: (context, controller, _) {
           return MaterialApp(
             theme: myRedWhiteTheme,
-            home: const NavBarScreen(),
+            home: NavBarScreen(myTeam: controller.myTeamList),
           );
         },
       ),

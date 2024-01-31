@@ -16,7 +16,7 @@ class MyTeamScreen extends StatelessWidget {
         iconTheme: Theme.of(context).iconTheme,
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () => {} ,
           ),
         ],

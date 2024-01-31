@@ -42,7 +42,9 @@ class BattleScreen extends StatelessWidget {
       child: Consumer<PokemonBattleViewModel>(
         builder: (context, controller, _) {
           return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: AppBar(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               title: Text('Battle',
                   style: Theme.of(context).textTheme.headlineLarge),
               iconTheme: IconTheme.of(context),

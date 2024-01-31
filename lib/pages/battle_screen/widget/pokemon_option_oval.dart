@@ -14,12 +14,13 @@ class PokemonOptionOval extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 100,
-        height: 100,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(157, 192, 159, 61),
-          shape: BoxShape.circle,
+      child: Card(
+        elevation: 4,
+        shape: const CircleBorder(
+          side: BorderSide(
+            color: Color.fromARGB(157, 192, 159, 61),
+            width: 6,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(6.0),

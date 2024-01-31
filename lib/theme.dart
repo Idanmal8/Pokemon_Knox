@@ -3,7 +3,7 @@ import 'package:pokemon_knox/models/pokemon.dart';
 
 final ThemeData myRedWhiteTheme = ThemeData(
   scaffoldBackgroundColor:
-      Colors.white, // Background color for Scaffold widgets
+      const Color.fromARGB(255, 192,175,137), // Background color for Scaffold widgets
   appBarTheme: const AppBarTheme(
     color: Colors.white, // AppBar background color
     iconTheme: IconThemeData(color: Color.fromARGB(255, 0, 0, 0)), // AppBar icon color

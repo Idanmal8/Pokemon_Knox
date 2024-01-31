@@ -15,8 +15,11 @@ class PokemonAbilitiesDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(157, 192, 159, 61),
       width: widthOfDrawer,
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(157, 192, 159, 61),
+        shape: BoxShape.rectangle,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Container(

@@ -11,15 +11,10 @@ class MyTeamScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title:
             Text('My team', style: Theme.of(context).textTheme.headlineLarge),
         iconTheme: Theme.of(context).iconTheme,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => {} ,
-          ),
-        ],
       ),
       body: Consumer<HomeScreenViewModel>(
         builder: (context, controller, _) {

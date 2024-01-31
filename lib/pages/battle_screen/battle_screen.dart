@@ -79,13 +79,7 @@ class BattleScreen extends StatelessWidget {
                                     fit: BoxFit.fitWidth,
                                   ),
                                 )
-                              : Visibility(
-                                  visible:
-                                      controller.isPokeballAnimationVisible,
-                                  child: PokeballThrowAnimationBox(
-                                      isPokeballAnimationVisible: controller
-                                          .isPokeballAnimationVisible),
-                                ),
+                              : Container(),
                         ),
                       ),
                       Positioned(
@@ -101,6 +95,7 @@ class BattleScreen extends StatelessWidget {
                       ),
                     ]),
                   ),
+                  controller.selectedPokemonImageUrl != null ? 
                   GridView.builder(
                     shrinkWrap: true, // Important to ensure proper scrolling
                     physics: const NeverScrollableScrollPhysics(),
@@ -119,7 +114,7 @@ class BattleScreen extends StatelessWidget {
                             abilityPrecentegeAgainstFoe: 80),
                       );
                     },
-                  ),
+                  ) : Container(),
                   const SizedBox(
                     height: 20,
                   ),

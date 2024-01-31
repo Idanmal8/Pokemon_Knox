@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pokemon_knox/pages/battle_screen/widget/pokeball_throw_animation.dart';
 import 'package:pokemon_knox/pages/battle_screen/widget/pokemon_abilities_drawer.dart';
 import 'package:pokemon_knox/pages/battle_screen/widget/pokemon_option_oval.dart';
 import 'package:pokemon_knox/models/pokemon.dart';
@@ -78,9 +79,12 @@ class BattleScreen extends StatelessWidget {
                                     fit: BoxFit.fitWidth,
                                   ),
                                 )
-                              : Image.asset(
-                                  'assets/fields/steelix.png',
-                                  scale: heightScale,
+                              : Visibility(
+                                  visible:
+                                      controller.isPokeballAnimationVisible,
+                                  child: PokeballThrowAnimationBox(
+                                      isPokeballAnimationVisible: controller
+                                          .isPokeballAnimationVisible),
                                 ),
                         ),
                       ),
@@ -133,9 +137,10 @@ class BattleScreen extends StatelessWidget {
                       var pokemon = controller.nonNullPokemons[index];
                       return PokemonOptionOval(
                         pokemonPng: pokemon.frontDefaultSprite ?? '',
-                        onTap: () =>
-                            controller.fetchAndSetSelectedPokemonImage(
-                                controller.nonNullPokemons[index].name),
+                        onTap: () => {
+                          controller
+                              .fetchAndSetSelectedPokemonImage(pokemon.name)
+                        },
                       );
                     },
                   ),

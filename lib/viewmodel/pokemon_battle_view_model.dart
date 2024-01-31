@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 class PokemonBattleViewModel extends ChangeNotifier {
   List<Pokemon?> _pokemons;
   String? _selectedPokemonImageUrl;
+  bool _isPokeballAnimationVisible = false;
 
   List<Pokemon?> get pokemons => _pokemons;
   String? get selectedPokemonImageUrl => _selectedPokemonImageUrl;
+  bool get isPokeballAnimationVisible => _isPokeballAnimationVisible;
 
   PokemonBattleViewModel(this._pokemons);
 
@@ -24,6 +26,18 @@ class PokemonBattleViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> throwPokeball() async {
+    _isPokeballAnimationVisible = true;
+    _selectedPokemonImageUrl = null;
+    notifyListeners();
+
+    // Wait for the duration of the animation
+    await Future.delayed(const Duration(milliseconds: 800));
+
+    _isPokeballAnimationVisible = false;
+    notifyListeners();
+  }
+
   Future<void> fetchAndSetSelectedPokemonImage(String pokemonName) async {
     try {
       final response = await http.get(Uri.parse(
@@ -33,7 +47,7 @@ class PokemonBattleViewModel extends ChangeNotifier {
       }
     } catch (e) {
       // Handle exceptions or errors.
-      debugPrint(e as String?);
+      debugPrint(e.toString());
     }
   }
 }

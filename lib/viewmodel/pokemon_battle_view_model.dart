@@ -50,4 +50,10 @@ class PokemonBattleViewModel extends ChangeNotifier {
       debugPrint(e.toString());
     }
   }
+
+  String? getSelectedPokemonBackSprite(Pokemon pokemon) {
+    print(_selectedPokemonImageUrl);
+    setSelectedPokemonImageUrl(pokemon.backDefaultSprite);
+    return pokemon.backDefaultSprite ?? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201-question.png';
+  }
 }

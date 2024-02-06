@@ -78,7 +78,7 @@ class BattleScreen extends StatelessWidget {
                                     fit: BoxFit.fitWidth,
                                   ),
                                 )
-                              : Container(),
+                              : const Center(child: Text('Pokemon image not found')),
                         ),
                       ),
                       Positioned(
@@ -133,7 +133,7 @@ class BattleScreen extends StatelessWidget {
                         pokemonPng: pokemon.frontDefaultSprite ?? '',
                         onTap: () => {
                           controller
-                              .fetchAndSetSelectedPokemonImage(pokemon.name)
+                              .getSelectedPokemonBackSprite(pokemon)
                         },
                       );
                     },

@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:pokemon_knox/pages/battle_screen/widget/pokeball_throw_animation.dart';
 import 'package:pokemon_knox/pages/battle_screen/widget/pokemon_abilities_drawer.dart';
 import 'package:pokemon_knox/pages/battle_screen/widget/pokemon_option_oval.dart';
-import 'package:pokemon_knox/models/pokemon.dart';
-import 'package:flutter/material.dart';
 import 'package:pokemon_knox/viewmodel/pokemon_battle_view_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pokemon_knox/models/pokemon.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class BattleScreen extends StatelessWidget {
   final List<Pokemon?> pokemons;

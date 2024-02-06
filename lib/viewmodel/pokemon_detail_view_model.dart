@@ -1,5 +1,7 @@
 import 'package:pokemon_knox/models/pokemon.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class PokemonDetailViewModel extends ChangeNotifier {
   final Pokemon? pokemon;
@@ -11,35 +13,42 @@ class PokemonDetailViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    // getPokemonAbilities(pokemon!);
+    getPokemonAbilities(pokemon!);
 
     _isLoading = false;
     notifyListeners();
   }
 
-  // Future<void> getPokemonAbilities(Pokemon pokemon) async {
-  //   print(pokemon.id);
-  //   if (pokemon.id == null || pokemon.id == 0) {
-  //     return;
-  //   }
+  Future<void> getPokemonAbilities(Pokemon pokemon) async {
+    if(pokemon.abilities != null && pokemon.abilities?.isNotEmpty == true){
+      return;
+    }
+    if (pokemon.id == null || pokemon.id == 0) {
+      return;
+    }
 
-  //   final response = await http
-  //       .get(Uri.parse('https://pokeapi.co/api/v2/ability/${pokemon.id}'));
-  //   if (response.statusCode == 200) {
-  //     final data = json.decode(response.body) as Map<String, dynamic>;
-  //     final List<dynamic> pokemonsWithAbility =
-  //         data['pokemon'] as List<dynamic>;
+    try {
+      final response = await http
+          .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/${pokemon.id}'));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body) as Map<String, dynamic>;
 
-  //     // Extracting the Pokémon names that have this ability
-  //     List<String> abilities = pokemonsWithAbility.map((pokemonData) {
-  //       return pokemonData['pokemon']['name'] as String;
-  //     }).toList();
+        // Since we are fetching the abilities, we directly access 'abilities' in the JSON
+        List<String> abilities =
+            (data['moves'] as List<dynamic>).map((abilityData) {
+          return abilityData['move']['name'] as String;
+        }).toList();
 
-  //     // Assigning the fetched abilities to the Pokemon object
-  //     pokemon.abilities = abilities;
-  //   } else {
-  //     // Handle the case when the server doesn't return a 200 OK response
-  //     throw Exception('Failed to load ability data');
-  //   }
-  // }
+        // Assigning the fetched abilities to the Pokemon object
+        pokemon.abilities = abilities;
+
+      } else {
+        throw Exception(
+            'Failed to load pokemon data with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint(e as String?);
+      throw Exception('Failed to load pokemon data');
+    }
+  }
 }

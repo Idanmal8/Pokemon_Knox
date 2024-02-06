@@ -77,14 +77,14 @@ class Pokemon {
 factory Pokemon.fromJson(Map<String, dynamic> json) {
   var spriteData = json['sprites'] as Map<String, dynamic>? ?? {};
   var typeData = json['types'] as List<dynamic>? ?? [];
-  var abilityData = json['abilities'] as List<dynamic>? ?? [];
+  var abilityData = json['moves'] as List<dynamic>? ?? [];
 
   List<String> types = typeData.map((typeItem) {
     return typeItem['type']['name'] as String;
   }).toList();
 
   List<String> abilities = abilityData.map((abilityItem) {
-    return abilityItem['ability']['name'] as String;
+    return abilityItem['move']['name'] as String;
   }).toList();
 
   return Pokemon(

@@ -21,6 +21,7 @@ class PokemonDetailViewModel extends ChangeNotifier {
 
   Future<void> getPokemonAbilities(Pokemon pokemon) async {
     if(pokemon.abilities != null && pokemon.abilities?.isNotEmpty == true){
+      debugPrint('Pokemon abilities already fetched');
       return;
     }
     if (pokemon.id == null || pokemon.id == 0) {

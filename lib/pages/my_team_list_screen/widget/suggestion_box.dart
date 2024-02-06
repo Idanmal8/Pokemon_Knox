@@ -5,10 +5,10 @@ class SuggestionBox extends StatelessWidget {
   final Function(String) onSelected;
 
   const SuggestionBox({
-    Key? key,
+    super.key,
     required this.suggestions,
     required this.onSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

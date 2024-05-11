@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:pokemon_knox/models/pokemon.dart';
 import 'package:pokemon_knox/models/pokemon_url.dart';
-import 'package:pokemon_knox/pages/pokemon_detail_screen/pokemon_detail_screen.dart';
+import 'package:pokemon_knox/screens/pokemon_detail_screen/pokemon_detail_screen.dart';
 import 'package:pokemon_knox/theme.dart';
 import 'package:pokemon_knox/utils/constant.dart';
 import 'package:pokemon_knox/utils/search_bar/search_bar_handler.dart';

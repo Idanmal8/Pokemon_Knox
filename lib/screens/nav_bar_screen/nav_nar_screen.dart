@@ -1,6 +1,6 @@
-import 'package:pokemon_knox/pages/battle_screen/battle_screen.dart';
-import 'package:pokemon_knox/pages/my_team_list_screen/my_team_list_screen.dart';
-import 'package:pokemon_knox/viewmodel/nav_bar_view_model.dart';
+import 'package:pokemon_knox/screens/battle_screen/battle_screen.dart';
+import 'package:pokemon_knox/screens/my_team_list_screen/my_team_list_screen.dart';
+import 'package:pokemon_knox/view_models/nav_bar_view_model.dart';
 import 'package:pokemon_knox/models/pokemon.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +25,9 @@ class NavBarScreen extends StatelessWidget {
               children: [
                 const MyTeamScreen(),
                 BattleScreen(pokemons: myTeam),
+                Container(),
+                Container(),
+                Container(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
@@ -32,14 +35,28 @@ class NavBarScreen extends StatelessWidget {
               onTap: (index) => controller.changeIndex(index),
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
+                  icon: Icon(Icons.phone),
+                  label: 'PokeDex',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.shield_outlined),
-                  label: 'Battle',
+                  icon: Icon(Icons.book),
+                  label: 'Guids',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.catching_pokemon_rounded),
+                  label: 'Team',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.backpack),
+                  label: 'Items',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.settings),
+                  label: 'Settings',
                 ),
               ],
+              selectedItemColor: Colors.black,
+              unselectedItemColor: Colors.grey,
             ),
           );
         },

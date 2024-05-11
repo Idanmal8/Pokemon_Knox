@@ -1,6 +1,6 @@
-import 'package:pokemon_knox/pages/my_team_list_screen/widget/pokemon_add_bottom_sheet.dart';
-import 'package:pokemon_knox/pages/my_team_list_screen/widget/pokemon_card_tile.dart';
-import 'package:pokemon_knox/viewmodel/home_screen_view_model.dart';
+import 'package:pokemon_knox/screens/my_team_list_screen/widget/pokemon_add_bottom_sheet.dart';
+import 'package:pokemon_knox/screens/my_team_list_screen/widget/pokemon_card_tile.dart';
+import 'package:pokemon_knox/view_models/home_screen_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +26,16 @@ class MyTeamScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var pokemon = controller.myTeamList[index];
                     return PokemonCardTile(
-                      pokemon: pokemon,
-                      onTap: () => _showAddPokemonBottomSheet(
-                          context, controller, index),
-                      onArrowTap: () => controller.goToPokemonDetails(context ,pokemon),
-                    );
+                        pokemon: pokemon,
+                        onTap: () => _showAddPokemonBottomSheet(
+                            context, controller, index),
+                        onArrowTap: () => {
+                              if (pokemon != null)
+                                {
+                                  controller.goToPokemonDetails(
+                                      context, pokemon)
+                                },
+                            });
                   },
                 ),
               ),

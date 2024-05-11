@@ -81,12 +81,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: 'Nunito'
+      fonts:
+        - asset: assets/fonts/Nutino/Nunito-Black.ttf
+        - asset: assets/fonts/Nutino/Nunito-Bold.ttf
+        - asset: assets/fonts/Nutino/Nunito-ExtraBold.ttf
+        - asset: assets/fonts/Nutino/Nunito-ExtraLight.ttf
     - family: 'PixelifySans'
       fonts:
-        - asset: assets/fonts/PixelifySans-Bold.ttf
-        - asset: assets/fonts/PixelifySans-Medium.ttf
-        - asset: assets/fonts/PixelifySans-Regular.ttf
-        - asset: assets/fonts/PixelifySans-SemiBold.ttf
+        - asset: assets/fonts/Pixel/PixelifySans-Bold.ttf
+        - asset: assets/fonts/Pixel/PixelifySans-Medium.ttf
+        - asset: assets/fonts/Pixel/PixelifySans-Regular.ttf
+        - asset: assets/fonts/Pixel/PixelifySans-SemiBold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

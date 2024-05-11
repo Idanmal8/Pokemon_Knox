@@ -1,7 +1,7 @@
-import 'package:pokemon_knox/pages/my_team_list_screen/widget/pokemon_search_bar.dart';
-import 'package:pokemon_knox/pages/my_team_list_screen/widget/pokemon_list_card.dart';
-import 'package:pokemon_knox/pages/my_team_list_screen/widget/suggestion_box.dart';
-import 'package:pokemon_knox/viewmodel/home_screen_view_model.dart';
+import 'package:pokemon_knox/screens/my_team_list_screen/widget/pokemon_search_bar.dart';
+import 'package:pokemon_knox/screens/my_team_list_screen/widget/pokemon_list_card.dart';
+import 'package:pokemon_knox/screens/my_team_list_screen/widget/suggestion_box.dart';
+import 'package:pokemon_knox/view_models/home_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

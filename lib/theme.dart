@@ -11,11 +11,12 @@ final ThemeData myRedWhiteTheme = ThemeData(
   dialogBackgroundColor: const Color.fromARGB(255, 255, 237, 183),
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
-        fontFamily: 'PixelifySans',
+        fontFamily: 'Nunito',
         fontSize: 20.0,
+        fontWeight: FontWeight.bold,
         color: Color.fromARGB(255, 0, 0, 0)),
     headlineSmall: TextStyle(
-        fontFamily: 'PixelifySans', fontSize: 16.0, color: Colors.black),
+        fontFamily: 'Nunito', fontSize: 16.0, color: Colors.black),
   ),
   buttonTheme: const ButtonThemeData(
     buttonColor: Colors.red, // Button background color

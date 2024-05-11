@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_knox/models/pokemon.dart';
-import 'package:pokemon_knox/pages/pokemon_detail_screen/widget/pokemon_abilities_box.dart';
-import 'package:pokemon_knox/pages/pokemon_detail_screen/widget/weak_against_widget.dart';
-import 'package:pokemon_knox/viewmodel/pokemon_detail_view_model.dart';
+import 'package:pokemon_knox/screens/pokemon_detail_screen/widget/pokemon_abilities_box.dart';
+import 'package:pokemon_knox/screens/pokemon_detail_screen/widget/weak_against_widget.dart';
+import 'package:pokemon_knox/view_models/pokemon_detail_view_model.dart';
 import 'package:pokemon_knox/widgets/pokemon_badges.dart';
 import 'package:provider/provider.dart';
 

@@ -1,5 +1,6 @@
 import 'package:pokemon_knox/screens/battle_screen/battle_screen.dart';
 import 'package:pokemon_knox/screens/my_team_list_screen/my_team_list_screen.dart';
+import 'package:pokemon_knox/screens/pokedex_screen/pokemon_list_page.dart';
 import 'package:pokemon_knox/view_models/nav_bar_view_model.dart';
 import 'package:pokemon_knox/models/pokemon.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +24,9 @@ class NavBarScreen extends StatelessWidget {
             body: IndexedStack(
               index: controller.currentIndex,
               children: [
-                const MyTeamScreen(),
+                const PokedexScreen(),
                 BattleScreen(pokemons: myTeam),
-                Container(),
+                const MyTeamScreen(),
                 Container(),
                 Container(),
               ],
